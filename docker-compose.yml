@@ -1,30 +1,29 @@
-version: '2'
+version: '2'  # Menggunakan Docker Compose Versi 2 atau lebih.
 
 services:
   item-app:
-    image: arifhrpp/item-app:v1
+    image: arifhrpp/item-app:v1  # Nama dan tag Docker image untuk Container item-app
     ports:
-      - "80:8080"
+      - "80:8080"  # Port mapping: Mengaitkan port 80 pada host dengan port 8080 pada Container item-app
     depends_on:
-      - item-db
-    restart: always
+      - item-db  # Menentukan bahwa Container item-app bergantung pada Container item-db
+    restart: always  # Selalu restart Container jika berhenti
     logging:
-      driver: json-file
+      driver: json-file  # Menggunakan driver json-file untuk logging Container
       options:
-        max-size: "10m" # Atur ukuran maksimum berkas log
-        max-file: "3"   # Atur jumlah berkas log yang akan disimpan
+        max-size: "10m"  # Membatasi ukuran maksimum berkas log hingga 10 megabita
+        # max-file: "10"    # Membatasi jumlah berkas log yang akan disimpan hingga 10 berkas
 
   item-db:
-    image: mongo:3
+    image: mongo:3  # Nama dan versi Docker image untuk Container item-db (MongoDB versi 3)
     volumes:
-      - app-db:/data/db
-    restart: always
+      - app-db:/data/db  # Membuat volume Docker bernama app-db untuk menyimpan data MongoDB
+    restart: always  # Selalu restart Container jika berhenti
     logging:
-      driver: json-file
+      driver: json-file  # Menggunakan driver json-file untuk logging Container
       options:
-        max-size: "10m"
-        max-file: "3"
+        max-size: "10m"  # Batasi ukuran maksimum berkas log hingga 10 megabita
+        # max-file: "10"    # Batasi jumlah berkas log yang akan disimpan hingga 10 berkas
 
 volumes:
-  app-db:
-
+  app-db:  # Membuat volume Docker dengan nama app-db yang akan digunakan oleh Container item-db
