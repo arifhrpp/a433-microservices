@@ -1,0 +1,30 @@
+version: '2'
+
+services:
+  item-app:
+    image: arifhrpp/item-app:item-app-v1
+    ports:
+      - "80:8080"
+    depends_on:
+      - item-db
+    restart: always
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m" # Atur ukuran maksimum berkas log
+        max-file: "3"   # Atur jumlah berkas log yang akan disimpan
+
+  item-db:
+    image: mongo:3
+    volumes:
+      - app-db:/data/db
+    restart: always
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  app-db:
+
