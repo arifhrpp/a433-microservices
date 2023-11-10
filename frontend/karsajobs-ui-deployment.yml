@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: karsajobs-ui-deployment # metadata name for this deployment
+  labels:
+    app: karsajobs-ui
+    type: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: karsajobs-ui
+      type: frontend
+  template:
+    metadata:
+      labels:
+        app: karsajobs-ui # label for backend
+        type: frontend
+    spec:
+      containers:
+        - name: karsajobs-ui
+          image: ghcr.io/arifhrpp/karsajobs-ui:latest # get image from github package
+          imagePullPolicy: Always
+          resources:
+            requests: # Mengatur sumber daya minimum yang diminta
+              memory: "350Mi" # Memori minimum yang diminta (350Mi = 350 mebibytes)
+              cpu: "250m" # CPU minimum yang diminta (250m = 250 milliCPUs)
+            limits: # Mengatur batas sumber daya
+              memory: "450Mi" # Batas memori
+              cpu: "350m" # Batas CPU (350m = 350 milliCPUs)
+          ports:
+            - containerPort: 8000 # set container port 8000
+          env:
+          - name: VUE_APP_BACKEND
+            value: "http://127.0.0.1:52921"

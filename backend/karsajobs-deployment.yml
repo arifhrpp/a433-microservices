@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: karsajobs-deployment # metadata name for this deployment
+  labels:
+    app: karsajobs
+    type: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: karsajobs
+      type: backend
+  template:
+    metadata:
+      labels:
+        app: karsajobs # label for backend
+        type: backend
+    spec:
+      containers:
+        - name: karsajobs-backend
+          image: ghcr.io/arifhrpp/karsajobs:latest # get image from github package
+          imagePullPolicy: Always
+          resources:
+            requests: # Mengatur sumber daya minimum yang diminta
+              memory: "150Mi" # Memori minimum yang diminta (150 Mi = 150 mebibytes)
+              cpu: "150m" # CPU minimum yang diminta (150m = 150 milliCPUs)
+            limits: # Mengatur batas sumber daya
+              memory: "200Mi" # Batas memori
+              cpu: "200m" # Batas CPU (200m = 200 milliCPUs)
+          ports:
+            - containerPort: 8080 # set container port 8080
+          env:
+            - name: APP_PORT
+              value: "8080"
+            - name: MONGO_HOST
+              value: "mongo"
+            - name: MONGO_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: MONGO_ROOT_USERNAME
+            - name: MONGO_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: MONGO_ROOT_PASSWORD
