@@ -1,19 +1,19 @@
-apiVersion: v1
-kind: Service
-metadata:
+apiVersion: v1  # Menentukan versi API yang digunakan dalam konfigurasi.
+kind: Service # Menunjukkan bahwa ini adalah konfigurasi untuk sebuah objek "Service" di Kubernetes.
+metadata: # Mendefinisikan metadata terkait dengan layanan, seperti nama dan label.
   name: karsajobs-service # service name
   labels:
     app: karsajobs
 spec:
-  type: NodePort # using node port
-  selector:
+  type: NodePort #  Menentukan tipe layanan, yang dalam hal ini adalah "NodePort." Ini berarti layanan akan diakses melalui port yang ditentukan di semua node Kubernetes.
+  selector: # Menentukan kriteria pemilihan pod yang akan diarahkan oleh layanan ini. Dalam hal ini, pod dengan label "app: karsajobs" dan "type: backend" akan diarahkan oleh layanan ini.
     app: karsajobs
     type: backend
   ports:
       # By default and for convenience, the `targetPort` is set to the same value as the `port` field.
-    - protocol: TCP
-      port: 8080
-      targetPort: 8080
+    - protocol: TCP # Menentukan bahwa protokol yang digunakan adalah TCP.
+      port: 8080  # Menentukan port yang akan digunakan oleh layanan.
+      targetPort: 8080  # Menentukan port target pada pod yang akan menerima lalu lintas dari layanan. Dalam hal ini, sama dengan port layanan.
       # Optional field
       # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
-      nodePort: 30010
+      nodePort: 30010 # Menentukan port yang akan dialokasikan secara khusus di setiap node Kubernetes untuk menerima lalu lintas yang ditujukan ke layanan ini.

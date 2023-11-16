@@ -1,8 +1,8 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
+apiVersion: v1  # Menunjukkan versi API Kubernetes yang digunakan dalam konfigurasi.
+kind: ConfigMap # Menunjukkan bahwa ini adalah konfigurasi untuk objek "ConfigMap" dalam Kubernetes.
+metadata: #  Mendefinisikan metadata terkait dengan ConfigMap, seperti nama.
   name: mongo-config
-data:
-  mongo.conf: |
+data: # Mendefinisikan data konfigurasi dalam bentuk key-value pairs. Dalam hal ini, ada satu key yaitu "mongo.conf" yang akan berisi konfigurasi untuk MongoDB.
+  mongo.conf: | # ni adalah key yang berisi konfigurasi dalam format YAML. Konfigurasi ini berisi pengaturan untuk direktori penyimpanan database MongoDB ("dbPath") yang akan digunakan.
     storage:
       dbPath: /data/db

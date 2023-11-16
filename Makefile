@@ -36,15 +36,15 @@ kubectl exec -it mongo-0 -- sh
 kubectl delete pod karsajobs-backend-dbb465899-d4kvx && kubectl delete karsajobs-ui-frontend-c6f8cdf95-dh7ql && kubectl delete pod mongo-0
 
 
-kubectl apply -f kubernetes/backend/karsajobs-service.yml
-kubectl apply -f kubernetes/backend/karsajobs-deployment.yml
-kubectl apply -f kubernetes/frontend/karsajobs-ui-service.yml
-kubectl apply -f kubernetes/frontend/karsajobs-ui-deployment.yml
-kubectl apply -f kubernetes/mongodb/mongo-configmap.yml
-kubectl apply -f kubernetes/mongodb/mongo-secret.yml
-kubectl apply -f kubernetes/mongodb/mongo-pv-pvc.yml
-kubectl apply -f kubernetes/mongodb/mongo-service.yml
-kubectl apply -f kubernetes/mongodb/mongo-statefulset.yml
+kubectl apply -f kubernetes/a433-microservices/backend/karsajobs-service.yml
+kubectl apply -f kubernetes/a433-microservices/backend/karsajobs-deployment.yml
+kubectl apply -f kubernetes/a433-microservices/frontend/karsajobs-ui-service.yml
+kubectl apply -f kubernetes/a433-microservices/frontend/karsajobs-ui-deployment.yml
+kubectl apply -f kubernetes/a433-microservices/mongodb/mongo-configmap.yml
+kubectl apply -f kubernetes/a433-microservices/mongodb/mongo-secret.yml
+kubectl apply -f kubernetes/a433-microservices/mongodb/mongo-pv-pvc.yml
+kubectl apply -f kubernetes/a433-microservices/mongodb/mongo-service.yml
+kubectl apply -f kubernetes/a433-microservices/mongodb/mongo-statefulset.yml
 
 ghcr.io/arifhrpp/karsajobs-ui:latest
 ghcr.io/arifhrpp/karsajobs:latest

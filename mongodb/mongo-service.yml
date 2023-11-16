@@ -1,13 +1,14 @@
 apiVersion: v1
 kind: Service
-metadata:
+metadata: # Mendefinisikan metadata terkait dengan Service, termasuk nama dan label.
   name: mongo
   labels:
     app: mongo
 spec:
-  ports:
-    - port: 27017
-  selector:
+  ports:  # Menentukan port yang akan terbuka pada Service.
+    - port: 27017 # Service akan terbuka pada port 27017, yang umumnya digunakan untuk layanan MongoDB.
+  selector: # Menentukan kriteria pemilihan pod yang akan diarahkan oleh Service, pod dengan label "app: mongo" dan "tier: backend" akan diarahkan oleh Service ini.
     app: mongo
     tier: backend
-  clusterIP: None
+  clusterIP: None # Menentukan bahwa Service ini tidak memiliki alamat IP cluster (ClusterIP). Ini berarti Service tidak dapat diakses secara langsung dari dalam cluster menggunakan ClusterIP. Penetapan clusterIP: None menandakan bahwa Service ini berfungsi sebagai layanan "headless" yang digunakan untuk mencari pod terkait daripada memberikan alamat IP sendiri.
+

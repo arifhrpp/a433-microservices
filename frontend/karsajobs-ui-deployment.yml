@@ -1,35 +1,35 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
+apiVersion: apps/v1 # Menunjukkan versi API Kubernetes yang digunakan dalam konfigurasi.
+kind: Deployment  # Menunjukkan bahwa ini adalah konfigurasi untuk objek "Deployment" dalam Kubernetes.
+metadata: # Mendefinisikan metadata yang terkait dengan deployment, termasuk nama dan label.
   name: karsajobs-ui-deployment # metadata name for this deployment
   labels:
     app: karsajobs-ui
     type: frontend
 spec:
-  replicas: 1
-  selector:
+  replicas: 1 # Menentukan jumlah instance (replicas) yang akan dijalankan, dalam hal ini satu instance.
+  selector: # Menentukan kriteria untuk pemilihan pod yang akan dielola oleh deployment.
     matchLabels:
       app: karsajobs-ui
       type: frontend
-  template:
+  template: # Mendefinisikan template untuk pod yang akan dibuat oleh deployment.
     metadata:
       labels:
         app: karsajobs-ui # label for backend
         type: frontend
     spec:
-      containers:
-        - name: karsajobs-ui
-          image: ghcr.io/arifhrpp/karsajobs-ui:latest # get image from github package
-          imagePullPolicy: Always
-          resources:
+      containers: # Mendefinisikan container yang akan berjalan di dalam pod.
+        - name: karsajobs-ui  # Memberikan nama container.
+          image: ghcr.io/arifhrpp/karsajobs-ui:latest # Menentukan image Docker yang akan digunakan oleh container dari GitHub Package.
+          imagePullPolicy: Always # Menentukan bahwa image akan selalu diunduh (jika diperlukan) ketika pod dijalankan.
+          resources:  # Mengatur sumber daya CPU dan memori yang diminta dan dibatasi oleh pod.
             requests: # Mengatur sumber daya minimum yang diminta
               memory: "350Mi" # Memori minimum yang diminta (350Mi = 350 mebibytes)
               cpu: "250m" # CPU minimum yang diminta (250m = 250 milliCPUs)
             limits: # Mengatur batas sumber daya
               memory: "450Mi" # Batas memori
               cpu: "350m" # Batas CPU (350m = 350 milliCPUs)
-          ports:
+          ports:  # Menentukan port yang akan digunakan oleh container (dalam hal ini, port 8000).
             - containerPort: 8000 # set container port 8000
-          env:
+          env:  # Menentukan variabel lingkungan yang akan digunakan oleh container, termasuk konfigurasi koneksi ke backend melalui "VUE_APP_BACKEND."
           - name: VUE_APP_BACKEND
             value: "http://127.0.0.1:52921"

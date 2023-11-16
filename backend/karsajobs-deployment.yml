@@ -1,13 +1,13 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: karsajobs-deployment # metadata name for this deployment
+apiVersion: apps/v1 # Menentukan versi API yang digunakan dalam konfigurasi.
+kind: Deployment  # Menentukan bahwa ini adalah konfigurasi untuk sebuah objek "Deployment" di Kubernetes.
+metadata: # Mendefinisikan metadata yang terkait dengan deployment
+  name: karsajobs-deployment # metadata nama untuk deployment
   labels:
     app: karsajobs
     type: backend
 spec:
-  replicas: 1
-  selector:
+  replicas: 1 # Menentukan jumlah instance (replicas) yang akan dijalankan
+  selector: # Menentukan kriteria untuk pemilihan pod yang akan dielola oleh deployment.
     matchLabels:
       app: karsajobs
       type: backend
@@ -17,20 +17,20 @@ spec:
         app: karsajobs # label for backend
         type: backend
     spec:
-      containers:
-        - name: karsajobs-backend
-          image: ghcr.io/arifhrpp/karsajobs:latest # get image from github package
-          imagePullPolicy: Always
-          resources:
+      containers: # endefinisikan container yang akan berjalan di dalam pod.
+        - name: karsajobs-backend # Memberikan nama container
+          image: ghcr.io/arifhrpp/karsajobs:latest # Menentukan image Docker yang akan digunakan oleh container dari GitHub Package.
+          imagePullPolicy: Always # Menentukan bahwa image akan selalu diunduh (jika diperlukan) ketika pod dijalankan.
+          resources:  # Mengatur sumber daya CPU dan memori yang diminta dan dibatasi oleh pod.
             requests: # Mengatur sumber daya minimum yang diminta
               memory: "150Mi" # Memori minimum yang diminta (150 Mi = 150 mebibytes)
               cpu: "150m" # CPU minimum yang diminta (150m = 150 milliCPUs)
             limits: # Mengatur batas sumber daya
               memory: "200Mi" # Batas memori
               cpu: "200m" # Batas CPU (200m = 200 milliCPUs)
-          ports:
+          ports:  # Menentukan port yang akan digunakan oleh container (dalam hal ini, port 8080).
             - containerPort: 8080 # set container port 8080
-          env:
+          env:  # Menentukan variabel lingkungan yang akan digunakan oleh container, termasuk konfigurasi koneksi ke MongoDB dengan menggunakan nilai dari "mongo-secret".
             - name: APP_PORT
               value: "8080"
             - name: MONGO_HOST
