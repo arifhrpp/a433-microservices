@@ -26,4 +26,8 @@ docker login ghcr.io -u arifhrpp --password-stdin
 # Push Docker image
 docker push arifhrpp/karsajobs:latest
 
+<<<<<<< HEAD
 docker push ghcr.io/arifhrpp/karsajobs:latest
+=======
+docker push ghcr.io/arifhrpp/order-service:latest
+>>>>>>> c939973ced66c6846349cf811cd5746a150aaa2b
